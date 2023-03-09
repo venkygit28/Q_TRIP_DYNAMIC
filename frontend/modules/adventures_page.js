@@ -5,23 +5,79 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+    let index = search.indexOf("?city=");
+    return search.substring(index+6)
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-
+  
+ return fetch(config.backendEndpoint+"/adventures?city="+city)
+  .then((response) => response.json())
+  .catch((err) => null);
 }
 
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+let root = document.getElementById("data");
+root.innerHTML= "";
+adventures.forEach((element) => {
+  let mainDiv = document.createElement("div");
+  root.appendChild(mainDiv);
+  mainDiv.setAttribute("class","col-12 col-sm-6 col-lg-3 mb-4");
+  let anchor = document.createElement("a");
+  mainDiv.appendChild(anchor);
+  anchor.setAttribute("id", element.id);
+  anchor.setAttribute("href", "detail/?adventure="+element.id);
 
+  let activity_card = document.createElement("div"); 
+  activity_card.setAttribute("class", "activity-card");
+  anchor.appendChild(activity_card); 
+  let activity_card_img = document.createElement("img");
+  activity_card_img.setAttribute("id",element.name); 
+  activity_card.appendChild(activity_card_img);
+  activity_card_img.setAttribute("class", "activity-card-image");
+  activity_card_img.setAttribute("src",element.image);
+  let adventure_detail_card = document.createElement("div");
+  activity_card.appendChild(adventure_detail_card); 
+  adventure_detail_card.setAttribute("class", "adventure-detail-card");
+// row 1
+
+let row_1= document.createElement("div"); 
+row_1.setAttribute("class", "d-flex justify-content-between flex-wrap");
+adventure_detail_card.appendChild(row_1);
+let row_1_col_1 = document.createElement("div");
+row_1_col_1.innerText = element.name;
+row_1.appendChild(row_1_col_1);
+
+let row_1_col_2 =document.createElement("div"); 
+row_1_col_2.innerHTML =`${element.costPerHead}`
+row_1.appendChild(row_1_col_2);
+
+//row 2 
+let row_2 = document.createElement("div");
+row_2.setAttribute("class", "d-flex justify-content-between"); 
+adventure_detail_card.appendChild(row_2);
+let row_2_col_1 = document.createElement("div"); 
+row_2_col_1.innerText = "Duration";
+row_2.appendChild(row_2_col_1); 
+let row_2_col_2 = document.createElement("div");
+
+row_2_col_2.innerText = element.duration+"Hours";
+row_2.appendChild(row_2_col_2);
+
+/*Banner*/
+
+let banner = document.createElement("div");
+activity_card.append(banner);
+banner.setAttribute("class","category-banner shadow");
+banner.innerText = element.category;
 }
-
+);}
 //Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS

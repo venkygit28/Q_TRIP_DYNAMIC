@@ -16,7 +16,7 @@ async function init() {
 async function fetchCities() {
   // TODO: MODULE_CITIES
   // 1. Fetch cities using the Backend API and return the data
-  return fetch("http://3.111.221.88:8082/cities")
+  return fetch("http://13.126.244.210:8082/cities")
   .then((data) => data.json())
   .then((data) =>{
     console.log(data);
@@ -40,7 +40,7 @@ function addCityToDOM(id, city, description, image) {
   anch.setAttribute("href","pages/adventures/?city"+id);
   anch.setAttribute("id",id);
   data.appendChild(col1);
-  col1.setAttribute("class","col-12 col-md-6 col-lg-3 mb-4 tile m-2");  
+  col1.setAttribute("class","col-12 col-sm-6 col-lg-3 mb-4");  
   let tileclass = document.createElement("div");
   tileclass.setAttribute("class","tile");
   anch.appendChild(tileclass);
@@ -52,7 +52,7 @@ function addCityToDOM(id, city, description, image) {
   tiletext.setAttribute("class","tile-text");
   tileclass.appendChild(tiletext);
   let cname = document.createElement("h5")
-  cname.setAttribute("class","text-center");
+  cname.setAttribute("class","text-center text-light d-flex flex-column justify-content-end");
   cname.innerText = city;
   tiletext.appendChild(cname);
   let desc = document.createElement("p")
