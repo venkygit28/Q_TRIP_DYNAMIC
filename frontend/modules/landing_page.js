@@ -37,7 +37,7 @@ function addCityToDOM(id, city, description, image) {
   let data = document.getElementById("data");
   let anch = document.createElement("a");
   let col1 = document.createElement("div");
-  anch.setAttribute("href","pages/adventures/?city"+id);
+  anch.setAttribute("href","pages/adventures/?city="+id);
   anch.setAttribute("id",id);
   data.appendChild(col1);
   col1.setAttribute("class","col-12 col-sm-6 col-lg-3 mb-4");  
