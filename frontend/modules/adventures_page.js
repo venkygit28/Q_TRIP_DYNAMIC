@@ -33,7 +33,6 @@ adventures.forEach((element) => {
   mainDiv.appendChild(anchor);
   anchor.setAttribute("id", element.id);
   anchor.setAttribute("href", "detail/?adventure="+element.id);
-
   let activity_card = document.createElement("div"); 
   activity_card.setAttribute("class", "activity-card");
   anchor.appendChild(activity_card); 
