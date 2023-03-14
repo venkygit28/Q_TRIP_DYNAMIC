@@ -81,15 +81,25 @@ banner.innerText = element.category;
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-
+  let res = [];
+  for(var i of list){
+    if(i.duration >= low && i.duration<= high) res.push(i)
+  }
+    return res;
 }
 
 //Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
+let res = [];
+for(var i of list){
+if(categoryList.includes(i.category)) res.push(i)
+}
+return res
 
 }
+
 
 // filters object looks like this filters = { duration: "", category: [] };
 
@@ -99,31 +109,47 @@ function filterByCategory(list, categoryList) {
 // 3. Filter by duration and category together
 
 function filterFunction(list, filters) {
+  console.log(filters.duration.split("-"))
+  
   // TODO: MODULE_FILTERS
+  let filteredList = []
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
-
-
-  // Place holder for functionality to work in the Stubs
-  return list;
+  if(filters["category"].length >0 && filters["duration"].length >0 ){
+    let arr = filters["duration"].split("-");
+  filteredList = filterByCategory(list,filters.category)
+  filteredList = filterByDuration(filteredList,arr[0],arr[1]);
+  return filteredList
+  }
+  else if(filters.category.length){
+  list = filterByCategory(list,filters.category)
 }
-
+else if(filters.duration.length){
+  let arr = filters["duration"].split("-");
+  list = filterByDuration(list,arr[0],arr[1]);
+}
+  else{
+    console.log(list)
+    return list;
+  
+}return list}
+// Place holder for functionality to work in the Stubs
 //Implementation of localStorage API to save filters to local storage. This should get called everytime an onChange() happens in either of filter dropdowns
 function saveFiltersToLocalStorage(filters) {
   // TODO: MODULE_FILTERS
   // 1. Store the filters as a String to localStorage
-
-  return true;
+  localStorage.setItem("filters",JSON.stringify(filters))
+   return true;
 }
 
 //Implementation of localStorage API to get filters from local storage. This should get called whenever the DOM is loaded.
 function getFiltersFromLocalStorage() {
   // TODO: MODULE_FILTERS
   // 1. Get the filters from localStorage and return String read as an object
-
-
+let p = localStorage.getItem('filters');
+return JSON.parse(p)
   // Place holder for functionality to work in the Stubs
-  return null;
+  // return null;
 }
 
 //Implementation of DOM manipulation to add the following filters to DOM :
@@ -133,7 +159,14 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
-
+for(let i=0;i<filters.category.length;i++){
+  let p = document.getElementById("category-list")
+  let v = document.createElement("div");
+  v.className = "category-filter"
+  v.innerText = filters.category[i];
+  p.appendChild(v);
+  
+}
 }
 export {
   getCityFromURL,
