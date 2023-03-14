@@ -1,4 +1,3 @@
-
 import config from "../conf/index.js";
 
 //Implementation to extract city from query params
@@ -33,6 +32,7 @@ adventures.forEach((element) => {
   mainDiv.appendChild(anchor);
   anchor.setAttribute("id", element.id);
   anchor.setAttribute("href", "detail/?adventure="+element.id);
+
   let activity_card = document.createElement("div"); 
   activity_card.setAttribute("class", "activity-card");
   anchor.appendChild(activity_card); 
@@ -97,7 +97,6 @@ for(var i of list){
 if(categoryList.includes(i.category)) res.push(i)
 }
 return res
-
 }
 
 
